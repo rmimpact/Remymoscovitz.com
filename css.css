@@ -353,6 +353,14 @@ background: linear-gradient(167deg, rgba(2,3,28,1) 0%, rgba(120,77,3,1) 100%);
     opacity: 1;
     
   }
+
+  .project-box {
+    border: 2px solid white;
+    border-radius: 15px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+  }
   
 /*--------------Testing Styles ----------------------------*/
 
