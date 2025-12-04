@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+/*Projects*/
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: DodgerBlue;
+}
+
+/*Project Boxes*/
+.container div {
+  background-color: #f1f1f1;
+  width: 100px;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;  
+  font-size: 30px;
+}
+
+.container div img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+.container div h2 {
+  font-size: 18px;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<h1>flex-wrap: wrap</h1>
+
+<p>flex-wrap: wrap; specifies that the flex items will wrap if necessary:</p>
+
+<div class="container">
+  <!-- Project cards will be generated here by JavaScript -->
+</div>
+
+<p>Try resizing the browser window!</p>
+
+<script>
+  // Load project data from an external JSON file and generate boxes dynamically
+  fetch('projects.json')
+    .then(function(response) {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(function(projects) {
+      // Optional: sort by an `order` field so you can easily re-order projects
+      projects.sort(function(a, b) {
+        return (a.order || 0) - (b.order || 0);
+      });
+
+      var container = document.querySelector('.container');
+      container.innerHTML = '';
+
+      projects.forEach(function(project) {
+        var box = document.createElement('div');
+
+        if (project.image) {
+          var img = document.createElement('img');
+          img.src = project.image; // image path from JSON
+          img.alt = project.title || '';
+          box.appendChild(img);
+        }
+
+        if (project.title) {
+          var title = document.createElement('h2');
+          title.textContent = project.title;
+          box.appendChild(title);
+        }
+
+        container.appendChild(box);
+      });
+    })
+    .catch(function(error) {
+      console.error('Error loading projects.json:', error);
+    });
+</script>
+
+</body>
+</html>
