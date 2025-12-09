@@ -1,103 +1,156 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Website in progress...">
+    <meta name="keywords" content="remym, moscovitz, remymoscovitz, rmoscovitz">
+    <link rel="icon" href="rm_custom_icon.png" type="image/png">
+    <title>Projects</title>
 
-/*Projects*/
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  background-color: DodgerBlue;
-}
+    <meta property="og:title" content="Remy Moscovitz" />
+    <meta property="og:description" content="Website in progress..." />
+    <meta property="og:image" content="rm_custom_icon.png" />
+    <meta property="og:url" content="remymoscovitz.com" />
 
-/*Project Boxes*/
-.container div {
-  background-color: #f1f1f1;
-  width: 300px;
-  margin: 10px;
-  padding: 10px;
-  text-align: center;  
-  font-size: 30px;
-}
-
-.container div img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto 10px auto;
-}
-
-.container div h2 {
-  font-size: 18px;
-  margin: 0;
-}
-</style>
+    <!-- Your existing global styles -->
+    <link href="hamburger.css" rel="stylesheet" type="text/css">
 </head>
-<body>
 
-<h1>flex-wrap: wrap</h1>
+<body onload="fadeIn()">
+    <!-- Top logo / fade overlay -->
+    <div class="top_fade">
+        <img src="white_nav_icon.png" class="top-right-logo">
+    </div>
 
-<p>flex-wrap: wrap; specifies that the flex items will wrap if necessary:</p>
+    <!-- Side navigation -->
+    <div id="mySidenav" class="sidenav">
+        <a href="home.html">Home</a>
+        <a href="contact.html">LinkedIn</a>
+        <a href="github.html">GitHub</a>
+        <a href="contact.html">Contact</a>
+        <a href="#">About</a>
+    </div>
 
-<div class="container">
-  <!-- Project cards will be generated here by JavaScript -->
-</div>
+    <!-- Hamburger button -->
+    <div style="position: fixed; z-index:3;">
+        <div class="name"></div>
+        <div class="hamburger hamburger--minus js-hamburger">
+            <div class="hamburger-box">
+                <div class="hamburger-inner"></div>
+            </div>
+        </div>
+    </div>
 
-<p>Try resizing the browser window!</p>
+    <!-- Navigation / fade JS (unchanged logic) -->
+    <script>
+        // Hamburger / side nav logic
+        var hamburger = document.querySelector(".hamburger");
+        var isOpen = false; // Track the state of the menu
 
-<script>
-  // Load project data from an external JSON file and generate boxes dynamically
-  fetch('projects.json')
-    .then(function(response) {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(function(projects) {
-      // Optional: sort by an `order` field so you can easily re-order projects
-      projects.sort(function(a, b) {
-        return (a.order || 0) - (b.order || 0);
-      });
+        hamburger.addEventListener("click", function () {
+            hamburger.classList.toggle("is-active");
 
-      var container = document.querySelector('.container');
-      container.innerHTML = '';
+            if (isOpen) {
+                closeNav();
+            } else {
+                openNav();
+            }
 
-      projects.forEach(function(project) {
-        var box = document.createElement('div');
-
-        // Make entire box clickable
-        box.style.cursor = 'pointer';
-        box.addEventListener('click', function() {
-          if (project.id) {
-            // Pass ID to the project info page
-            window.location.href = 'ProjectInfo.html?id=' + encodeURIComponent(project.id);
-          } else {
-            window.location.href = 'ProjectInfo.html';
-          }
+            isOpen = !isOpen;
         });
 
-        if (project.image) {
-          var img = document.createElement('img');
-          img.src = project.image; // image path from JSON
-          img.alt = project.title || '';
-          box.appendChild(img);
+        function fadeIn() {
+            var main = document.getElementById("main");
+            if (main) {
+                main.style.opacity = "1";
+                main.style.marginTop = "0px";
+            }
         }
 
-        if (project.title) {
-          var title = document.createElement('h2');
-          title.textContent = project.title;
-          box.appendChild(title);
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
         }
 
-        container.appendChild(box);
-      });
-    })
-    .catch(function(error) {
-      console.error('Error loading projects.json:', error);
-    });
-</script>
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
 
+    <!-- Main content -->
+    <div id="main">
+        <div id="fadeIn">
+            <div class="spacer"></div>
+            <h2>Projects</h2>
+            <p>Click on a project below to view more details.</p>
 
+            <!-- Project cards: styled by .project-container + .project-container > div in hamburger.css -->
+            <div class="project-container">
+                <!-- Cards will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Project list loader -->
+    <script>
+        // Load project data from an external JSON file and generate boxes dynamically
+        fetch('projects.json')
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(function (projects) {
+                // Sort by "order" field
+                projects.sort(function (a, b) {
+                    return (a.order || 0) - (b.order || 0);
+                });
+
+                var container = document.querySelector('.project-container');
+                if (!container) return;
+                container.innerHTML = '';
+
+                projects.forEach(function (project) {
+                    // Create the project card div
+                    var box = document.createElement('div');
+                    // Your CSS already targets .project-container > div
+                    // Add extra class if you want to hook more styles
+                    box.classList.add('project-box');
+                    box.style.cursor = 'pointer';
+
+                    // Make the entire card clickable
+                    box.addEventListener('click', function () {
+                        if (project.id) {
+                            window.location.href = 'ProjectInfo.html?id=' + encodeURIComponent(project.id);
+                        } else {
+                            window.location.href = 'ProjectInfo.html';
+                        }
+                    });
+
+                    // Optional banner image at top of card
+                    if (project.image) {
+                        var banner = document.createElement('div');
+                        // Use your existing .card-baner styles
+                        banner.classList.add('card-baner');
+                        banner.style.backgroundImage = 'url("' + project.image + '")';
+                        box.appendChild(banner);
+                    }
+
+                    // Title text
+                    var title = document.createElement('h3');
+                    title.textContent = project.title || 'Untitled project';
+                    box.appendChild(title);
+
+                    // Append card to container
+                    container.appendChild(box);
+                });
+            })
+            .catch(function (error) {
+                console.error('Error loading projects.json:', error);
+            });
+    </script>
 </body>
 </html>
