@@ -1,17 +1,20 @@
 [
-    {
-      "order": 1,
-      "title": "Football Management Pannel",
-      "image": "JavaProjects/ManagementPannel/Media/minibanner.gif"
-    },
-    {
-      "order": 2,
-      "title": "UTS Room Booking Helper",
-      "image": ""
-    },
-    {
-      "order": 3,
-      "title": "JavaScript Password Generator",
-      "image": ""
-    }
-  ]
+  {
+    "id": "football-management-panel",
+    "order": 1,
+    "title": "Football Management Pannel",
+    "image": "JavaProjects/ManagementPannel/Media/minibanner.gif"
+  },
+  {
+    "id": "uts-room-booking-helper",
+    "order": 2,
+    "title": "UTS Room Booking Helper",
+    "image": ""
+  },
+  {
+    "id": "js-password-generator",
+    "order": 3,
+    "title": "JavaScript Password Generator",
+    "image": ""
+  }
+]

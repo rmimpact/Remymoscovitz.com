@@ -66,6 +66,17 @@
       projects.forEach(function(project) {
         var box = document.createElement('div');
 
+        // Make entire box clickable
+        box.style.cursor = 'pointer';
+        box.addEventListener('click', function() {
+          if (project.id) {
+            // Pass ID to the project info page
+            window.location.href = 'ProjectInfo.html?id=' + encodeURIComponent(project.id);
+          } else {
+            window.location.href = 'ProjectInfo.html';
+          }
+        });
+
         if (project.image) {
           var img = document.createElement('img');
           img.src = project.image; // image path from JSON
@@ -86,6 +97,7 @@
       console.error('Error loading projects.json:', error);
     });
 </script>
+
 
 </body>
 </html>
