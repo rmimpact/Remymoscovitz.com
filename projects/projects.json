@@ -3,18 +3,21 @@
     "id": "football-management-panel",
     "order": 1,
     "title": "Football Management Pannel",
-    "image": "JavaProjects/ManagementPannel/Media/minibanner.gif"
+    "image": "JavaProjects/ManagementPannel/Media/minibanner.gif",
+    "category": "java"
   },
   {
     "id": "uts-room-booking-helper",
     "order": 2,
     "title": "UTS Room Booking Helper",
-    "image": ""
+    "image": "",
+    "category": "web"
   },
   {
     "id": "js-password-generator",
     "order": 3,
     "title": "JavaScript Password Generator",
-    "image": ""
+    "image": "",
+    "category": "javascript"
   }
 ]

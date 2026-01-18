@@ -83,41 +83,65 @@
     <div id="main">
         <div id="fadeIn">
             <div class="spacer"></div>
+
             <h2>Projects</h2>
             <p>Click on a project below to view more details.</p>
 
-            <!-- Project cards: styled by .project-container + .project-container > div in hamburger.css -->
-            <div class="project-container">
-                <!-- Cards will be inserted here by JavaScript -->
-            </div>
+            <!-- Categories -->
+            <h2>Java Projects</h2>
+            <div class="project-container" id="projects-java"></div>
+
+            <h2>JavaScript Projects</h2>
+            <div class="project-container" id="projects-javascript"></div>
+
+            <h2>Web Projects</h2>
+            <div class="project-container" id="projects-web"></div>
+
+            <h2>Database Projects</h2>
+            <div class="project-container" id="projects-database"></div>
+
+            <h2>Document Projects</h2>
+            <div class="project-container" id="projects-document"></div>
         </div>
     </div>
 
     <!-- Project list loader -->
     <script>
-        // Load project data from an external JSON file and generate boxes dynamically
         fetch('projects.json')
             .then(function (response) {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+                if (!response.ok) throw new Error('Network response was not ok');
                 return response.json();
             })
             .then(function (projects) {
+
+                // Map category -> container ID
+                var categoryToContainerId = {
+                    java: 'projects-java',
+                    javascript: 'projects-javascript',
+                    web: 'projects-web',
+                    database: 'projects-database',
+                    document: 'projects-document'
+                };
+
+                // Clear all containers first
+                Object.keys(categoryToContainerId).forEach(function (cat) {
+                    var el = document.getElementById(categoryToContainerId[cat]);
+                    if (el) el.innerHTML = '';
+                });
+
                 // Sort by "order" field
                 projects.sort(function (a, b) {
                     return (a.order || 0) - (b.order || 0);
                 });
 
-                var container = document.querySelector('.project-container');
-                if (!container) return;
-                container.innerHTML = '';
-
                 projects.forEach(function (project) {
+                    var category = (project.category || '').toLowerCase();
+                    var containerId = categoryToContainerId[category] || categoryToContainerId.web;
+                    var container = document.getElementById(containerId);
+                    if (!container) return;
+
                     // Create the project card div
                     var box = document.createElement('div');
-                    // Your CSS already targets .project-container > div
-                    // Add extra class if you want to hook more styles
                     box.classList.add('project-box');
                     box.style.cursor = 'pointer';
 
@@ -131,9 +155,8 @@
                     });
 
                     // Optional banner image at top of card
-                    if (project.image) {
+                    if (project.image && project.image.trim() !== "") {
                         var banner = document.createElement('div');
-                        // Use your existing .card-baner styles
                         banner.classList.add('card-baner');
                         banner.style.backgroundImage = 'url("' + project.image + '")';
                         box.appendChild(banner);

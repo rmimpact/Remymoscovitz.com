@@ -361,6 +361,9 @@ background: linear-gradient(167deg, rgba(2,3,28,1) 0%, rgba(120,77,3,1) 100%);
     margin-bottom: 2rem;
     transition: transform 0.3s ease;
   }
+  .project-box:hover {
+    transform: scale(1.05);
+  }
   
 /*--------------Testing Styles ----------------------------*/
 
