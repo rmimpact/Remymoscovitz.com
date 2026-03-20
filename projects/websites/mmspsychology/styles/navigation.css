@@ -15,15 +15,16 @@ html, body {
    Navigation bar
    ========================== */
 nav {
-  background: #f9f9f9;
+  background: #f9f9f979;
   height: 80px;
   width: 100%;
   padding-left: 20px;
-
   position: sticky;
   top: 0;
   z-index: 1000;
   display: flow-root;
+  inset: 0;
+  backdrop-filter: blur(16px);
 }
 
 /* logo image in navbar */
