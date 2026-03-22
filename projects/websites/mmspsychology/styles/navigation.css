@@ -15,7 +15,7 @@ html, body {
    Navigation bar
    ========================== */
 nav {
-  background: #f9f9f979;
+  background: #ffffff9e;
   height: 80px;
   width: 100%;
   padding-left: 20px;
@@ -24,7 +24,7 @@ nav {
   z-index: 1000;
   display: flow-root;
   inset: 0;
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(25px);
 }
 
 /* logo image in navbar */
